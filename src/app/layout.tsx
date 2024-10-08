@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
-import { cn } from "@/lib/utils";
-
+import { cn } from "../Lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
-const IBMPlex = IBM_Plex_Sans({ 
+const IBMPlex = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-ibm-plex'
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex",
 });
 
 export const metadata: Metadata = {
@@ -21,10 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{
-      variables: { colorPrimary: '#624cf5' }
-    }}>
-      <html lang="en">
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+      <html lang="en" key="root-layout">
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
           {children}
         </body>
